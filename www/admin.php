@@ -1,7 +1,6 @@
 <?php
 
-$city = 'Kharkov';
-$page = 'Taxi order';
+$page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
 ?>
 

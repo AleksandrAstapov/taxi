@@ -4,15 +4,24 @@ $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 switch ($action){
   case 'authorization':
     // TEMPORARY !!!
-    $accessType = isset($_REQUEST['login']) ? $_REQUEST['login'] : '';
-    setcookie('userType', $accessType);
+    $login = isset($_REQUEST['login']) ? $_REQUEST['login'] : '';
+    setcookie('userType', $login);
+    $_COOKIE['userType'] = $login;
     // TEMPORARY !!!
+    break;
+  case 'quilt':
+    setcookie('userType', 'guest');
+    ?>
+    <SCRIPT>
+      window.location.assign('./index.php');
+    </SCRIPT>
+    <?php
     break;
   default:
     break;  
 }
 
-$page = 'Main';
+$page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
 ?>
 
@@ -58,6 +67,7 @@ include_once 'html_header.php';
       </a>
     </div>
   </div>
+  
 </section>
         
 <?php

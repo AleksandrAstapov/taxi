@@ -1,14 +1,9 @@
 <?php
-include_once 'textSheet.inc';
-$lang = isset($_COOKIE['lang']) ? $_COOKIE['lang'] : 'RU';
-switch ($lang){
-  case 'RU':
-    $text = $textRU;
-    break;
-  case 'EN':
-    $text = $textEN;
-    break;
-}
+
+include_once './class/class.Lang.php';
+$objLang = new Lang;
+$text = $objLang->text;
+
 ?>
 
       <footer>

@@ -1,4 +1,8 @@
 
+#lang {
+  display: inline-block;
+  width: auto; 
+}
 
 img.navbar-img {
   height: 50px;

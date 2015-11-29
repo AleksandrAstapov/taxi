@@ -1,7 +1,17 @@
 <?php
 
+include_once './class/class.Access.php';
+include_once './class/class.Lang.php';
+
+$objAccess = new Access('db');
+$accessType = $objAccess->accessType;
+
+$objLang = new Lang;
+$text = $objLang->text;
+
 $page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
+
 ?>
 
 <section class="row">

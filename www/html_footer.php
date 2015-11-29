@@ -1,8 +1,6 @@
 <?php
 
-include_once './class/class.Lang.php';
-$objLang = new Lang;
-$text = $objLang->text;
+global $text;
 
 ?>
 

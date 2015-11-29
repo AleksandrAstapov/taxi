@@ -1,15 +1,8 @@
 <?php
-include_once './class/class.Lang.php';
-global $page;
 
-if (isset($_COOKIE['userType'])){
-  $accessType = $_COOKIE['userType'];
-} else {
-  $accessType = 'guest';
-}
+global $accessType, $page, $text;
+$pageWithMap = array('admin.php','order.php');
 
-$objLang = new Lang;
-$text = $objLang->text;
 ?>
 
 <html>
@@ -23,7 +16,7 @@ $text = $objLang->text;
     <link rel="stylesheet" href="./css/taxi_main.css">
     <script src="./js/jquery-1.11.2.js"></script>
     <script src="./js/bootstrap.min.js"></script>
-    <?php if ($page == 'order.php'): ?>
+    <?php if (in_array($page, $pageWithMap)): ?>
       <script src="http://maps.googleapis.com/maps/api/js"></script>
       <script src="./js/mapScript.js"></script>
     <?php endif ?>
@@ -61,15 +54,17 @@ $text = $objLang->text;
                   <li><a href="admin.php"><?=$text['admin.php']?></a></li>
                 <?php endif ?>
               </ul>
-              <ul class="nav navbar-nav navbar-right">
+              <form class="navbar-form navbar-right" action="index.php" method="POST">
                 <?php if ($accessType == 'guest'): ?>
-                  <li><a href="registration.php"><?=$text['registration.php']?></a></li>
+                  <a class="btn btn-default" href="registration.php">
+                    <?=$text['registration.php']?>
+                  </a>
                 <?php else: ?>
-                  <li><a href="index.php?action=quilt"><?=$text['Exit']?></a></li>
+                  <button class="btn btn-default" type="submit" name="action" value="quilt">
+                    <?=$text['Exit']?>
+                  </button>
                 <?php endif ?>
-              </ul>
-              <form class="navbar-form navbar-right">
-                <select class="form-control" id="lang">
+                <select id="lang" class="form-control">
                   <?php foreach($objLang->langList as $val): ?>
                     <option <?= ($val == $objLang->lang) ? 'selected' : '' ?>><?=$val?></option>
                   <?php endforeach ?>

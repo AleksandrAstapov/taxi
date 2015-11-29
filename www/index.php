@@ -1,28 +1,17 @@
 <?php
 
-$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
-switch ($action){
-  case 'authorization':
-    // TEMPORARY !!!
-    $login = isset($_REQUEST['login']) ? $_REQUEST['login'] : '';
-    setcookie('userType', $login);
-    $_COOKIE['userType'] = $login;
-    // TEMPORARY !!!
-    break;
-  case 'quilt':
-    setcookie('userType', 'guest');
-    ?>
-    <SCRIPT>
-      window.location.assign('./index.php');
-    </SCRIPT>
-    <?php
-    break;
-  default:
-    break;  
-}
+include_once './class/class.Access.php';
+include_once './class/class.Lang.php';
+
+$objAccess = new Access('db');
+$accessType = $objAccess->accessType;
+
+$objLang = new Lang;
+$text = $objLang->text;
 
 $page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
+
 ?>
 
 <section class="row">
@@ -32,18 +21,18 @@ include_once 'html_header.php';
     <form role="form" method="POST">
       <div class="form-group has-feedback">
         <label for="login">Логин</label>
-        <input id="login" class="form-control" type="text" name="login">
+        <input id="login" class="form-control" type="text" name="userlogin">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
         <span class="help-block"></span>
       </div>
       <div class="form-group has-feedback">
         <label for="passw">Пароль</label>
-        <input id="passw" class="form-control" type="password" name="passw">
+        <input id="passw" class="form-control" type="password" name="userpasswrd">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary btn-lg" type="submit" name="action" value="authorization">
+        <button class="btn btn-primary btn-lg" type="submit">
           Вход <span class="glyphicon glyphicon-play"></span>
         </button>
         <a class="btn btn-link btn-lg pull-right" href="./lostPassword.php">

@@ -1,14 +1,15 @@
 <?php
 
 include_once './class/class.Access.php';
+include_once './class/class.DataBase.php';
 include_once './class/class.Lang.php';
 
-$objAccess = new Access('db');
-$accessType = $objAccess->accessType;
-
+$objBD = new DataBase;
+$objAccess = new Access($objBD);
 $objLang = new Lang;
-$text = $objLang->text;
 
+$accessType = $objAccess->accessType;
+$text = $objLang->text;
 $page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
 

@@ -1,14 +1,24 @@
 <?php
 
 include_once './class/class.Access.php';
+include_once './class/class.DataBase.php';
 include_once './class/class.Lang.php';
 
-$objAccess = new Access('db');
-$accessType = $objAccess->accessType;
-
+$objBD = new DataBase;
+$objAccess = new Access($objBD);
 $objLang = new Lang;
-$text = $objLang->text;
 
+$action = (isset($_REQUEST['action'])) ? $_REQUEST['action'] : '';
+switch ($action) {
+  case 'quilt':
+    $objAccess->guilt();
+    break;
+  default:
+    break;
+}
+
+$accessType = $objAccess->accessType;
+$text = $objLang->text;
 $page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
 
@@ -18,28 +28,30 @@ include_once 'html_header.php';
 
   <!-- Форма авторизации -->
   <div class="col-sm-4 col-xs-12">
-    <form role="form" method="POST">
-      <div class="form-group has-feedback">
-        <label for="login">Логин</label>
-        <input id="login" class="form-control" type="text" name="userlogin">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        <span class="help-block"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <label for="passw">Пароль</label>
-        <input id="passw" class="form-control" type="password" name="userpasswrd">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        <span class="help-block"></span>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-lg" type="submit">
-          Вход <span class="glyphicon glyphicon-play"></span>
-        </button>
-        <a class="btn btn-link btn-lg pull-right" href="./lostPassword.php">
-          Забыли пароль?
-        </a>
-      </div>
-    </form>
+    <?php if ($accessType == 'guest'): ?>
+      <form role="form" method="POST">
+        <div class="form-group has-feedback">
+          <label for="login">Логин</label>
+          <input id="login" class="form-control" type="text" name="userlogin">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          <span class="help-block"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <label for="passw">Пароль</label>
+          <input id="passw" class="form-control" type="password" name="userpassword">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <span class="help-block"></span>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-lg" type="submit">
+            Вход <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <a class="btn btn-link btn-lg pull-right" href="./lostPassword.php">
+            Забыли пароль?
+          </a>
+        </div>
+      </form>
+    <?php endif; ?>
   </div>
 
   <!-- Приветствие -->
@@ -51,9 +63,11 @@ include_once 'html_header.php';
       <hr>
       <p>С помощью нашего онлайн-сервиса Вы можете найти ближайшие такси и заказать понравившийся Вам автомобиль.</p>
       <p>Зарегестрированные пользователи при заказе такси через онлайн-сервис дополнительно получают 5% скидки!</p>
-      <a class="btn btn-primary btn-lg" href="./registration.php">
-        Регистрация <span class="glyphicon glyphicon-play"></span>
-      </a>
+      <?php if ($accessType == 'guest'): ?>
+        <a class="btn btn-primary btn-lg" href="./registration.php">
+          Регистрация <span class="glyphicon glyphicon-play"></span>
+        </a>
+      <?php endif; ?>
     </div>
   </div>
   

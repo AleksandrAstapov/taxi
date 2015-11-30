@@ -39,10 +39,10 @@ class Lang {
   }
    
   public function __get($propertyName) {
-    if (!$this->$propertyName) {
-      throw new Exception('Недопустимое значение свойства!');
-    } else {
+    if (isset($this->$propertyName)) {
       return $this->$propertyName;
+    } else {
+      return false;
     }
   }
 }

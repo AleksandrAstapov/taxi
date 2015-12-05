@@ -4,8 +4,8 @@ include_once './class/class.Access.php';
 include_once './class/class.DataBase.php';
 include_once './class/class.Lang.php';
 
-$objBD = new DataBase;
-$objAccess = new Access($objBD);
+$objDB = new DataBase;
+$objAccess = new Access($objDB);
 $objLang = new Lang;
 
 $action = (isset($_REQUEST['action'])) ? $_REQUEST['action'] : '';

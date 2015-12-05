@@ -55,20 +55,16 @@ $pageWithMap = array('admin.php','order.php');
                 <?php endif ?>
               </ul>
               <form class="navbar-form navbar-right" action="index.php" method="POST">
-                <?php if ($accessType == 'guest'): ?>
-                  <a class="btn btn-default" href="registration.php">
-                    <?=$text['registration.php']?>
-                  </a>
-                <?php else: ?>
-                  <button class="btn btn-default" type="submit" name="action" value="quilt">
-                    <?=$text['Exit']?>
-                  </button>
-                <?php endif ?>
                 <select id="lang" class="form-control">
                   <?php foreach($objLang->langList as $val): ?>
                     <option <?= ($val == $objLang->lang) ? 'selected' : '' ?>><?=$val?></option>
                   <?php endforeach ?>
                 </select>
+                <?php if ($accessType !== 'guest'): ?>
+                  <button class="btn btn-default" type="submit" name="action" value="quilt">
+                    <?=$text['Exit']?>
+                  </button>
+                <?php endif ?>
               </form>
             </div>
           </div>

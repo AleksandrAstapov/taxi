@@ -1,0 +1,6 @@
+.settings
+.project
+/nbproject
+/nbproject/*
+/access.log
+/com-error.log

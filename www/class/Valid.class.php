@@ -16,8 +16,8 @@ class Valid {
   protected $request = array();
   protected $valid = true;
       
-  public function __construct($validate = true) {
-    if ($validate === false){
+  public function __construct($db = false) {
+    if ($db === false){
       $this->clear();
       return;
     }
@@ -49,6 +49,10 @@ class Valid {
         $this->error[$key] = 'errorInvalidFormat';
         $this->valid = false;
       }
+    }
+    if ($db->isEmailInDB($this->request['email'])) {
+      $this->error['email'] = 'errorEmail';
+      $this->valid = false;
     }
     if ($this->request['passw'] !== $this->request['confirm']){
       $this->error['confirm'] = 'errorConfirm';

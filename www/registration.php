@@ -1,27 +1,34 @@
 <?php
 
-//include_once './class/DataBase.class.php';
+//mail('asa--87@mail.ru','Register Confirm', "sdfgdfgfd"); 
+
+include_once './class/DataBase.class.php';
 include_once './class/Lang.class.php';
 include_once './class/Valid.class.php';
 
-//$objDB = new DataBase;
+$objDB = new DataBase;
 $objLang = new Lang;
+$text = $objLang->text;
 
 switch (filter_input(INPUT_POST, 'action')){
   case 'reg':
-    $objValid = new Valid(true);
+    $objValid = new Valid($objDB);
+    $fields = $objValid->request;
+    if ($objValid->valid){
+      $objDB->addUser($fields);
+      include_once 'index.php';
+      exit;
+    }
     break;
   default:
     $objValid = new Valid(false);
+    $fields = $objValid->request;
     break;
 }
 
-$text = $objLang->text;
 $errors = $objValid->errorText($text);
-$fields = $objValid->request;
-
 $accessType = 'guest';
-$page = basename($_SERVER['PHP_SELF']);
+$page = basename(filter_input(INPUT_SERVER,'PHP_SELF'));
 include_once 'html_header.php';
 
 ?>
@@ -42,7 +49,7 @@ include_once 'html_header.php';
       <form role="form" method="POST">
 
         <div class="form-group">
-          <label for="surname"><?=$text['Surname'];?></label>
+          <label class="control-label" for="surname"><?=$text['Surname'];?></label>
           <div class="input-group">
             <input id="surname" class="form-control" name="surname" 
                    value="<?=$fields['surname'];?>" type="text">
@@ -56,7 +63,7 @@ include_once 'html_header.php';
         </div>
         
         <div class="form-group">
-          <label for="name"><?=$text['Name'];?></label>
+          <label class="control-label" for="name"><?=$text['Name'];?></label>
           <div class="input-group">
             <input id="name" class="form-control" name="name" 
                    value="<?=$fields['name'];?>" type="text">
@@ -70,7 +77,7 @@ include_once 'html_header.php';
         </div>
         
         <div class="form-group">
-          <label for="patronymic"><?=$text['Patronymic'];?></label>
+          <label class="control-label" for="patronymic"><?=$text['Patronymic'];?></label>
           <div class="input-group">
             <input id="patronymic" class="form-control" name="patronymic" 
                    value="<?=$fields['patronymic'];?>" type="text">
@@ -84,14 +91,14 @@ include_once 'html_header.php';
         </div>
         
         <div class="form-group">
-          <label for="email"><?=$text['Email'];?> *</label>
+          <label class="control-label" for="email"><?=$text['Email'];?> *</label>
           <input id="email" class="form-control" name="email" 
                  value="<?=$fields['email'];?>" type="text">
           <span class="help-block"><?=$errors['email'];?></span>
         </div>
         
         <div class="form-group">
-          <label for="phone"><?=$text['Phone'];?></label>
+          <label class="control-label" for="phone"><?=$text['Phone'];?></label>
           <div class="input-group">
             <input id="phone" class="form-control" name="phone" 
                    value="<?=$fields['phone'];?>" type="text">
@@ -105,7 +112,7 @@ include_once 'html_header.php';
         </div>
         
         <div class="form-group">
-          <label for="login"><?=$text['Login'];?> *</label>
+          <label class="control-label" for="login"><?=$text['Login'];?> *</label>
           <div class="input-group">
             <input id="login" class="form-control" name="login" 
                    value="<?=$fields['login'];?>" type="text">
@@ -119,7 +126,7 @@ include_once 'html_header.php';
         </div>
         
         <div class="form-group">
-          <label for="passw"><?=$text['Password'];?> *</label>
+          <label class="control-label" for="passw"><?=$text['Password'];?> *</label>
           <div class="input-group">
             <input id="passw" class="form-control" name="passw" 
                    value="<?=$fields['passw'];?>" type="password">
@@ -133,14 +140,14 @@ include_once 'html_header.php';
         </div>
         
         <div class="form-group">
-          <label for="confirm"><?=$text['Confirm'];?> *</label>
+          <label class="control-label" for="confirm"><?=$text['Confirm'];?> *</label>
           <input id="confirm" class="form-control" name="confirm" 
                  value="<?=$fields['confirm'];?>" type="password">
           <span class="help-block"><?=$errors['confirm'];?></span>
         </div>
         
         <div class="form-group">
-          <label for="comment"><?=$text['Comment'];?></label>
+          <label class="control-label" for="comment"><?=$text['Comment'];?></label>
           <textarea id="comment" class="form-control" name="comment" 
                     value="<?=$fields['comment'];?>" rows="4" maxlength="255">
           </textarea>

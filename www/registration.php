@@ -1,7 +1,7 @@
 <?php
 
-//include_once './class/class.DataBase.php';
-include_once './class/class.Lang.php';
+//include_once './class/DataBase.class.php';
+include_once './class/Lang.class.php';
 include_once './class/Valid.class.php';
 
 //$objDB = new DataBase;
@@ -44,10 +44,11 @@ include_once 'html_header.php';
         <div class="form-group">
           <label for="surname"><?=$text['Surname'];?></label>
           <div class="input-group">
-            <input id="surname" class="form-control" name="surname" value="<?=$fields['surname'];?>" type="text">
+            <input id="surname" class="form-control" name="surname" 
+                   value="<?=$fields['surname'];?>" type="text">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" title="<?=$text['SurnameHelp'];?>">
-                ?
+              <button type="button" class="btn btn-default" 
+                      data-toggle="tooltip" title="<?=$text['SurnameHelp'];?>">?
               </button>
             </span>
           </div>
@@ -57,10 +58,11 @@ include_once 'html_header.php';
         <div class="form-group">
           <label for="name"><?=$text['Name'];?></label>
           <div class="input-group">
-            <input id="name" class="form-control" name="name" value="<?=$fields['name'];?>" type="text">
+            <input id="name" class="form-control" name="name" 
+                   value="<?=$fields['name'];?>" type="text">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" title="<?=$text['NameHelp'];?>">
-                ?
+              <button type="button" class="btn btn-default" 
+                      data-toggle="tooltip" title="<?=$text['NameHelp'];?>">?
               </button>
             </span>
           </div>
@@ -70,10 +72,11 @@ include_once 'html_header.php';
         <div class="form-group">
           <label for="patronymic"><?=$text['Patronymic'];?></label>
           <div class="input-group">
-            <input id="patronymic" class="form-control" name="patronymic" value="<?=$fields['patronymic'];?>" type="text">
+            <input id="patronymic" class="form-control" name="patronymic" 
+                   value="<?=$fields['patronymic'];?>" type="text">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" title="<?=$text['PatronymicHelp'];?>">
-                ?
+              <button type="button" class="btn btn-default" 
+                      data-toggle="tooltip" title="<?=$text['PatronymicHelp'];?>">?
               </button>
             </span>
           </div>
@@ -82,17 +85,19 @@ include_once 'html_header.php';
         
         <div class="form-group">
           <label for="email"><?=$text['Email'];?> *</label>
-          <input id="email" class="form-control" name="email" value="<?=$fields['email'];?>" type="text">
+          <input id="email" class="form-control" name="email" 
+                 value="<?=$fields['email'];?>" type="text">
           <span class="help-block"><?=$errors['email'];?></span>
         </div>
         
         <div class="form-group">
           <label for="phone"><?=$text['Phone'];?></label>
           <div class="input-group">
-            <input id="phone" class="form-control" name="phone" value="<?=$fields['phone'];?>" type="text">
+            <input id="phone" class="form-control" name="phone" 
+                   value="<?=$fields['phone'];?>" type="text">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" title="<?=$text['PhoneHelp'];?>">
-                ?
+              <button type="button" class="btn btn-default" 
+                      data-toggle="tooltip" title="<?=$text['PhoneHelp'];?>">?
               </button>
             </span>
           </div>
@@ -102,10 +107,11 @@ include_once 'html_header.php';
         <div class="form-group">
           <label for="login"><?=$text['Login'];?> *</label>
           <div class="input-group">
-            <input id="login" class="form-control" name="login" value="<?=$fields['login'];?>" type="text">
+            <input id="login" class="form-control" name="login" 
+                   value="<?=$fields['login'];?>" type="text">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" title="<?=$text['LoginHelp'];?>">
-                ?
+              <button type="button" class="btn btn-default" 
+                      data-toggle="tooltip" title="<?=$text['LoginHelp'];?>">?
               </button>
             </span>
           </div>
@@ -115,10 +121,11 @@ include_once 'html_header.php';
         <div class="form-group">
           <label for="passw"><?=$text['Password'];?> *</label>
           <div class="input-group">
-            <input id="passw" class="form-control" name="passw" value="<?=$fields['passw'];?>" type="password">
+            <input id="passw" class="form-control" name="passw" 
+                   value="<?=$fields['passw'];?>" type="password">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" title="<?=$text['PasswordHelp'];?>">
-                ?
+              <button class="btn btn-default" type="button" 
+                      data-toggle="tooltip" title="<?=$text['PasswordHelp'];?>">?
               </button>
             </span>
           </div>
@@ -127,13 +134,16 @@ include_once 'html_header.php';
         
         <div class="form-group">
           <label for="confirm"><?=$text['Confirm'];?> *</label>
-          <input id="confirm" class="form-control" name="confirm" value="<?=$fields['confirm'];?>" type="password">
+          <input id="confirm" class="form-control" name="confirm" 
+                 value="<?=$fields['confirm'];?>" type="password">
           <span class="help-block"><?=$errors['confirm'];?></span>
         </div>
         
         <div class="form-group">
           <label for="comment"><?=$text['Comment'];?></label>
-          <textarea id="comment" class="form-control" name="comment" value="<?=$fields['comment'];?>" rows="4" maxlength="255"></textarea>
+          <textarea id="comment" class="form-control" name="comment" 
+                    value="<?=$fields['comment'];?>" rows="4" maxlength="255">
+          </textarea>
         </div>
         
         <button class="btn btn-primary btn-lg" name="action" value="reg" type="submit">
@@ -148,6 +158,7 @@ include_once 'html_header.php';
 
 <SCRIPT>
   $('button[data-toggle="tooltip"]').tooltip();
+  $('span.help-block:not(:empty)').parent('div.form-group').addClass('has-error');
 </SCRIPT>
         
 <?php

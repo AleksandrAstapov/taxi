@@ -1,8 +1,8 @@
 <?php
 
-include_once './class/class.Access.php';
-include_once './class/class.DataBase.php';
-include_once './class/class.Lang.php';
+include_once './class/Access.class.php';
+include_once './class/DataBase.class.php';
+include_once './class/Lang.class.php';
 
 $objBD = new DataBase;
 $objAccess = new Access($objBD);

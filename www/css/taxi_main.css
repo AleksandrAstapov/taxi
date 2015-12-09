@@ -4,16 +4,19 @@
   width: auto; 
 }
 
-img.navbar-img {
+.navbar-img {
   height: 50px;
   padding: 5px 15px;
 }
 
 @media (max-width: 768px) {
-  nav.navbar-fixed-bottom {
+  .img-thumbnail {
+    margin-bottom: 10px;
+  }
+  .navbar-fixed-bottom {
     bottom: -50px;
   }
-  nav.navbar-fixed-bottom div.navbar-collapse.in {
+  .navbar-fixed-bottom div.navbar-collapse.in {
     padding-bottom: 50px;
     transition: padding-bottom 0.5s ease-out;
   }

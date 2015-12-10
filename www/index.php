@@ -8,8 +8,7 @@ $objDB = new DataBase;
 $objAccess = new Access($objDB);
 $objLang = new Lang;
 
-$action = (isset($_REQUEST['action'])) ? $_REQUEST['action'] : '';
-switch ($action) {
+switch (filter_input(INPUT_POST, 'action')) {
   case 'quilt':
     $objAccess->guilt();
     break;
@@ -18,8 +17,8 @@ switch ($action) {
 }
 
 $accessType = $objAccess->accessType;
+$page = $objAccess->page;
 $text = $objLang->text;
-$page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
 
 ?>
@@ -38,7 +37,7 @@ include_once 'html_header.php';
         </div>
         <div class="form-group has-feedback">
           <label for="passw"><?=$text['Password'];?></label>
-          <input id="passw" class="form-control" type="password" name="userpassword">
+          <input id="passw" class="form-control" type="password" name="userpassw">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           <span class="help-block"></span>
         </div>
@@ -59,7 +58,7 @@ include_once 'html_header.php';
   <!-- Приветствие -->
   <div class="col-sm-8 col-xs-12">
     <div class="jumbotron">
-      <h2 class="text-primary">Приветствуем Вас, <?=$objAccess->name;?>!</h2>
+      <h2 class="text-primary">Приветствуем Вас, Гость!</h2>
       <p class="lead">Благодарим за выбор нашей службы такси.</p>
       <p class="lead">Мы довезём Вас быстро и с комфортом!</p>
       <hr>

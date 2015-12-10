@@ -3,25 +3,31 @@ class Access {
   
   protected $accessType;
   protected $login;
+  protected $email;
   protected $name;
+  protected $page;
   protected $password;
       
   public function __construct($db) {
-    if (isset($_COOKIE['userlogin']) && isset($_COOKIE['userpassword'])){
-      $this->login = $_COOKIE['userlogin'];
-      $this->password = $_COOKIE['userpassword'];
-    } elseif (empty($_POST['userlogin']) || empty($_POST['userpassword'])) {
+    $this->page = basename(filter_input(INPUT_SERVER,'PHP_SELF'));
+    //
+    if (($log = filter_input(INPUT_COOKIE,'userlogin')) 
+        && ($pas = filter_input(INPUT_COOKIE,'userpassw'))) {
+      $this->login = $log;
+      $this->password = $pas;
+    } elseif (($log = filter_input(INPUT_POST,'userlogin')) 
+        && ($pas = filter_input(INPUT_POST,'userpassw'))) {
+      $this->login = $log;
+      $this->password = md5($pas);
+    } else {
       $this->guilt();
       return;
-    } else {
-      $this->login = $_POST['userlogin'];
-      $this->password = md5($_POST['userpassword']);
     }
-    $response = $db->authorization($this->login,$this->password);
+    $response = $db->isUserInDB($this->login,$this->password);
     if ($response){
-      list($this->name, $this->accessType) = $response;
+      list($this->name, $this->accessType, $this->email) = $response;
       setcookie('userlogin', $this->login);
-      setcookie('userpassword', $this->password);
+      setcookie('userpassw', $this->password);
     } else {
       $this->guilt();
     }
@@ -29,7 +35,7 @@ class Access {
   
   public function guilt(){
     setcookie('userlogin', false);
-    setcookie('userpassword', false);
+    setcookie('userpassw', false);
     $this->accessType = 'guest';
     $this->name = 'Гость';
   }

@@ -4,13 +4,13 @@ include_once './class/Access.class.php';
 include_once './class/DataBase.class.php';
 include_once './class/Lang.class.php';
 
-$objBD = new DataBase;
-$objAccess = new Access($objBD);
+$objDB = new DataBase;
+$objAccess = new Access($objDB);
 $objLang = new Lang;
 
 $accessType = $objAccess->accessType;
+$page = $objAccess->page;
 $text = $objLang->text;
-$page = basename($_SERVER['PHP_SELF']);
 include_once 'html_header.php';
 
 ?>

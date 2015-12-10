@@ -2,33 +2,34 @@
 
 //mail('asa--87@mail.ru','Register Confirm', "sdfgdfgfd"); 
 
+include_once './class/Access.class.php';
 include_once './class/DataBase.class.php';
 include_once './class/Lang.class.php';
 include_once './class/Valid.class.php';
 
 $objDB = new DataBase;
+$objAccess = new Access($objDB);
 $objLang = new Lang;
-$text = $objLang->text;
+$objValid = new Valid($objDB);
 
 switch (filter_input(INPUT_POST, 'action')){
   case 'reg':
-    $objValid = new Valid($objDB);
-    $fields = $objValid->request;
     if ($objValid->valid){
-      $objDB->addUser($fields);
+      $objDB->addUser($objValid->request);
       include_once 'index.php';
       exit;
     }
     break;
   default:
-    $objValid = new Valid(false);
-    $fields = $objValid->request;
+    $objValid->clear();
     break;
 }
 
+$accessType = $objAccess->accessType;
+$page = $objAccess->page;
+$text = $objLang->text;
 $errors = $objValid->errorText($text);
-$accessType = 'guest';
-$page = basename(filter_input(INPUT_SERVER,'PHP_SELF'));
+$fields = $objValid->request;
 include_once 'html_header.php';
 
 ?>

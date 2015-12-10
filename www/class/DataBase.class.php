@@ -12,20 +12,21 @@ class DataBase {
     $sql = "INSERT INTO `users` "
         . "(`surname`,`name`,`patronymic`,`email`,`phone`,`comment`,`login`,`password`,`access`)"
         . "VALUES ('{$data['surname']}','{$data['name']}','{$data['patronymic']}',"
-        . "'{$data['email']}','{$data['phone']}','{$data['comment']}','{$data['login']}',"
-        . md5($data['passw']) . "'user')";
+        . "'{$data['email']}','{$data['phone']}','{$data['comment']}','{$data['login']}','"
+        . md5($data['passw']) . "','user')";
     $conn->query($sql);
+    $result = $conn->affected_rows;
     $conn->close();
-    return ($conn->affected_rows > 0) ? true : false;
+    return ($result > 0) ? true : false;
   }
     
-  public function authorization($login,$passw){
+  public function isUserInDB($login,$passw){
     $conn = new mysqli(self::HOST, $this->user, $this->password, self::DBNAME);
-    $sql = "SELECT `id`,`name`,`access` FROM `users` ".
+    $sql = "SELECT `id`,`name`,`access`,`email` FROM `users` ".
         "WHERE `login`='$login' AND `password`='$passw';";
     $result = $conn->query($sql);
     $conn->close();
-    if ($result){
+    if ($result && $result->num_rows > 0){
       $resArr = $result->fetch_row();
       $this->id = array_shift($resArr);
       return $resArr;
@@ -41,8 +42,8 @@ class DataBase {
     $conn->close();
     return ($result->num_rows > 0) ? true : false;
   }
-     
-  public function __get($property) {
+
+    public function __get($property) {
     if (isset($this->$property)) {
       return $this->$property;
     } else {

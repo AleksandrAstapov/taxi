@@ -54,6 +54,10 @@ class Valid {
       $this->error['email'] = 'errorEmail';
       $this->valid = false;
     }
+    if ($db->isUserInDB($this->request['login'],md5($this->request['passw']))) {
+      $this->error['login'] = 'errorLogin';
+      $this->valid = false;
+    }
     if ($this->request['passw'] !== $this->request['confirm']){
       $this->error['confirm'] = 'errorConfirm';
       $this->valid = false;

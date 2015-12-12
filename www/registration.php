@@ -8,27 +8,22 @@ include_once './class/Lang.class.php';
 include_once './class/Valid.class.php';
 
 $objDB = new DataBase;
-$objAccess = new Access($objDB);
 $objLang = new Lang;
-$objValid = new Valid($objDB);
+$objAccess = new Access($objDB);
+$objValid = new Valid($objDB,$objLang->text);
 
-switch (filter_input(INPUT_POST, 'action')){
-  case 'reg':
-    if ($objValid->valid){
-      $objDB->addUser($objValid->request);
-      include_once 'index.php';
-      exit;
-    }
-    break;
-  default:
-    $objValid->clear();
-    break;
+if (filter_input(INPUT_POST, 'action') === 'reg'){
+  if ($objValid->validate()){
+    $objDB->addUser($objValid->request);
+  }
+} else {
+  $objValid->clear();
 }
 
 $accessType = $objAccess->accessType;
 $page = $objAccess->page;
 $text = $objLang->text;
-$errors = $objValid->errorText($text);
+$errors = $objValid->errorText();
 $fields = $objValid->request;
 include_once 'html_header.php';
 
@@ -45,7 +40,7 @@ include_once 'html_header.php';
   <div class="col-sm-8 col-xs-12">
     <div class="jumbotron">
       <h2 class="text-primary"><?=$text['Registration'];?></h2>
-      <p><?=$text['RegNotice'];?></p>
+      <p><?=$text['regNotice'];?></p>
       <hr>
       <form role="form" method="POST">
 

@@ -47,10 +47,9 @@ $pageWithMap = array('admin.php','order.php');
             <div id="navbar-header" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
                 <li><a href="index.php"><?=$text['index.php']?></a></li>
-                <li><a href="order.php"><?=$text['order.php']?></a></li>
-                <?php if ($accessType == 'driver'): ?>
+                <?php if ($accessType !== 'guest'): ?>
+                  <li><a href="order.php"><?=$text['order.php']?></a></li>
                   <li><a href="driver.php"><?=$text['driver.php']?></a></li>
-                <?php elseif ($accessType == 'admin'): ?>
                   <li><a href="admin.php"><?=$text['admin.php']?></a></li>
                 <?php endif ?>
               </ul>

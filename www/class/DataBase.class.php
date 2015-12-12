@@ -7,13 +7,35 @@ class DataBase {
   private $password = 'XAM7fOn8Me';
   private $user = 'taxiUser';
 
+  public function __get($property) {
+    if (isset($this->$property)) {
+      return $this->$property;
+    } else {
+      return false;
+    }
+  }  
+  
   public function addUser($data){
     $conn = new mysqli(self::HOST, $this->user, $this->password, self::DBNAME);
     $sql = "INSERT INTO `users` "
         . "(`surname`,`name`,`patronymic`,`email`,`phone`,`comment`,`login`,`password`,`access`)"
         . "VALUES ('{$data['surname']}','{$data['name']}','{$data['patronymic']}',"
         . "'{$data['email']}','{$data['phone']}','{$data['comment']}','{$data['login']}','"
-        . md5($data['passw']) . "','user')";
+        . md5($data['passw']) . "','newuser')";
+    $conn->query($sql);
+    $result = $conn->affected_rows;
+    $conn->close();
+    return ($result > 0) ? true : false;
+  }
+  
+  public function confirmUser(){
+    if (!($log = filter_input(INPUT_GET,'user')) 
+        || !($pas = filter_input(INPUT_GET,'key'))) {
+      return false;
+    }
+    $conn = new mysqli(self::HOST, $this->user, $this->password, self::DBNAME);
+    $sql = "UPDATE `users` SET `access`='user' "
+        . "WHERE `login`='$log' AND `password`='$pas' AND `access`='newuser'";
     $conn->query($sql);
     $result = $conn->affected_rows;
     $conn->close();
@@ -22,7 +44,7 @@ class DataBase {
     
   public function isUserInDB($login,$passw){
     $conn = new mysqli(self::HOST, $this->user, $this->password, self::DBNAME);
-    $sql = "SELECT `id`,`name`,`access`,`email` FROM `users` ".
+    $sql = "SELECT `id`,`name`,`access` FROM `users` ".
         "WHERE `login`='$login' AND `password`='$passw';";
     $result = $conn->query($sql);
     $conn->close();
@@ -37,17 +59,10 @@ class DataBase {
     
   public function isEmailInDB($email){
     $conn = new mysqli(self::HOST, $this->user, $this->password, self::DBNAME);
-    $sql = "SELECT `id` FROM `users` WHERE `email`='$email';";
+    $sql = "SELECT `id` FROM `users` "
+        . "WHERE `email`='$email';";
     $result = $conn->query($sql);
     $conn->close();
     return ($result->num_rows > 0) ? true : false;
-  }
-
-    public function __get($property) {
-    if (isset($this->$property)) {
-      return $this->$property;
-    } else {
-      return false;
-    }
   }
 }

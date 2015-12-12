@@ -5,8 +5,8 @@ include_once './class/DataBase.class.php';
 include_once './class/Lang.class.php';
 
 $objDB = new DataBase;
-$objAccess = new Access($objDB);
 $objLang = new Lang;
+$objAccess = new Access($objDB);
 
 $accessType = $objAccess->accessType;
 $page = $objAccess->page;

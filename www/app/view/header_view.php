@@ -1,7 +1,7 @@
 <?php
 
 global $accessType, $page, $text;
-$pageWithMap = array('admin.php','order.php');
+$pageWithMap = array('admin','order');
 
 ?>
 
@@ -46,11 +46,11 @@ $pageWithMap = array('admin.php','order.php');
             <!-- COLLAPSED -->
             <div id="navbar-header" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
-                <li><a href="index.php"><?=$text['index.php']?></a></li>
+                <li><a href="main"><?=$text['main']?></a></li>
                 <?php if ($accessType !== 'guest'): ?>
-                  <li><a href="order.php"><?=$text['order.php']?></a></li>
-                  <li><a href="driver.php"><?=$text['driver.php']?></a></li>
-                  <li><a href="admin.php"><?=$text['admin.php']?></a></li>
+                  <li><a href="order"><?=$text['order.php']?></a></li>
+                  <li><a href="driver"><?=$text['driver.php']?></a></li>
+                  <li><a href="admin"><?=$text['admin.php']?></a></li>
                 <?php endif ?>
               </ul>
               <form class="navbar-form navbar-right" action="index.php" method="POST">

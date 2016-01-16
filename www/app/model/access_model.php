@@ -10,7 +10,7 @@ class Access {
       
   public function __construct($db) {
     $this->db = $db;
-    $this->page = basename(filter_input(INPUT_SERVER,'PHP_SELF'));
+    $this->page = basename($_SERVER['REQUEST_URI']);
     //
     if (filter_input(INPUT_POST, 'action') === 'quilt') {
       $this->guilt();
